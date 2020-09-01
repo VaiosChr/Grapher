@@ -28,6 +28,8 @@
 		A200456E24FE2AC500FA6EFB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		A200457624FE4A6200FA6EFB /* bitmap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = bitmap.cpp; sourceTree = "<group>"; };
 		A200457724FE4A6200FA6EFB /* bitmap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bitmap.hpp; sourceTree = "<group>"; };
+		A200457924FE643200FA6EFB /* bitmap_info_header.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bitmap_info_header.hpp; sourceTree = "<group>"; };
+		A200457A24FE644400FA6EFB /* bitmap_file_header.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = bitmap_file_header.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,8 @@
 				A200456E24FE2AC500FA6EFB /* main.cpp */,
 				A200457624FE4A6200FA6EFB /* bitmap.cpp */,
 				A200457724FE4A6200FA6EFB /* bitmap.hpp */,
+				A200457A24FE644400FA6EFB /* bitmap_file_header.hpp */,
+				A200457924FE643200FA6EFB /* bitmap_info_header.hpp */,
 			);
 			path = Grapher;
 			sourceTree = "<group>";

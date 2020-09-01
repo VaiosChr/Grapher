@@ -3,7 +3,10 @@
 
 #include <cstdint>
 #include <memory>
-#include <cmath>
+#include <string>
+
+#define x1 - 1000
+#define x2 1000
 
 using namespace std;
 
@@ -14,7 +17,17 @@ private:
     unique_ptr<uint8_t> p_pixels{nullptr};
     
 public:
-    void graphing_function(double (* func)(double), double x1 = - INFINITY, double x2 = INFINITY);
+    void run();
+    
+    bitmap(int width, int height);
+    
+    void graphing_function(double (* func)(double));
+    
+    void set_pixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue);
+    
+    void draw_axis();
+    
+    bool write(string filename);
 };
 
 #endif /* bitmap_hpp */

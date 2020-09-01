@@ -16,9 +16,9 @@ double my_function(double x)
 int main()
 {
     double (* p_func)(double) = my_function;
-    bitmap bmp;
-    
-    bmp.graphing_function(p_func);
+//    bitmap bmp;
+//
+//    bmp.graphing_function(p_func);
     
     return 0;
 }
