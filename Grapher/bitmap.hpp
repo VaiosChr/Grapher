@@ -2,7 +2,6 @@
 #define bitmap_hpp
 
 #include <cstdint>
-#include <memory>
 #include <string>
 
 #define x1 - 1000
@@ -14,14 +13,15 @@ class bitmap
 {
 private:
     int width{0}, height{0};
+    double (* func)(double);
     unique_ptr<uint8_t> p_pixels{nullptr};
-    
+
 public:
     void run();
     
-    bitmap(int width, int height);
+    bitmap(int width, int height, double(* func)(double));
     
-    void graphing_function(double (* func)(double));
+    void graphing_function();
     
     void set_pixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue);
     

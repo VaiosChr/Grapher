@@ -1,21 +1,35 @@
 #include <fstream>
+#include <cmath>
+
+#pragma pack(2)
 
 #include "bitmap.hpp"
 #include "bitmap_file_header.hpp"
 #include "bitmap_info_header.hpp"
 
-void run()
+
+void bitmap::run()
 {
-    
+    draw_axis();
+    graphing_function();
+    write("picture.bmp");
 }
 
-bitmap::bitmap(int width, int height) : width(width), height(height), p_pixels(new uint8_t[width * height * 3]){}
+bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), height(height), func(func), p_pixels(new uint8_t[width * height * 3]){}
 
-void bitmap::graphing_function(double (* func)(double))
+void bitmap::graphing_function()
 {
+    #warning something is wrong
+    double min = INFINITY, max = - INFINITY;
+    
     for(int x = x1; x < x2; x++)
     {
-        #warning do something with func
+        if(func(x) > max) max = func(x);
+        if(func(x) < min) min = func(x);
+    }
+    for(int x = x1; x < x2; x++)
+    {
+        set_pixel((x + ((x1 > 0) ? - x1 : x1)) * width / (abs(x1) + abs(x2)), func(x), 0, 255, 0);
     }
 }
 
