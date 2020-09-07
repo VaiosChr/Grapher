@@ -3,6 +3,9 @@
 
 #include "bitmap.hpp"
 
+#define width 800
+#define height 600
+
 using namespace std;
 
 double my_function(double x)
@@ -16,7 +19,7 @@ double my_function(double x)
 int main()
 {
     double (* p_func)(double) = my_function;
-    bitmap bmp(800, 800, p_func);
+    bitmap bmp(width, height, p_func);
 
     bmp.run();
     cout << "Finished!" << endl;

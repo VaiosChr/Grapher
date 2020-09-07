@@ -19,17 +19,21 @@ bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), he
 
 void bitmap::graphing_function()
 {
-    #warning something is wrong
-    double min = INFINITY, max = - INFINITY;
+    double y1 = INFINITY, y2 = - INFINITY;
     
-    for(int x = x1; x < x2; x++)
+    for(int x = x1; x <= x2; x++)
     {
-        if(func(x) > max) max = func(x);
-        if(func(x) < min) min = func(x);
+        if(func(x) > y2) y2 = func(x);
+        if(func(x) < y1) y1 = func(x);
     }
-    for(int x = x1; x < x2; x++)
+//    for(int x = x1; x <= x2; x++)
+//    {
+//        set_pixel((x + ((x1 > 0) ? - x1 : x1)) * width / (abs(x1) + abs(x2)), func(x), 0, 255, 0);
+//    }
+    
+    for(int x = x1; x <= x2; x++)
     {
-        set_pixel((x + ((x1 > 0) ? - x1 : x1)) * width / (abs(x1) + abs(x2)), func(x), 0, 255, 0);
+        set_pixel((x + (int)(x1 > 0 ? (- x1) : x1)) * width / (x2 - x1), height / 2 + (int)(func(x) * height / (y2 - y1)), 0, 255, 0);
     }
 }
 
@@ -49,6 +53,8 @@ void bitmap::draw_axis()
     for(int x = 0; x < width; x++) set_pixel(x, height / 2, 255, 255, 255);
     //draw y axis
     for(int y = 0; y < height; y++) set_pixel(width / 2, y, 255, 255, 255);
+    //draw (0, 0)
+    
 }
 
 bool bitmap::write(string filename)
