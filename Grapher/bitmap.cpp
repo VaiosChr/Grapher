@@ -54,7 +54,15 @@ void bitmap::draw_axis()
     //draw y axis
     for(int y = 0; y < height; y++) set_pixel(width / 2, y, 255, 255, 255);
     //draw (0, 0)
-    
+    int radius = 10;
+    for(int x = - radius; x < radius; x++)
+    {
+        for(int y = - radius; y < radius; y++)
+        {
+            set_pixel(width / 2 + x, height / 2- sqrt(pow(radius, 2) - pow(x, 2)), 255, 255, 255);
+            set_pixel(width / 2 + x, height / 2 + (int)sqrt(pow(radius, 2) - pow(x, 2)), 255, 255, 255);
+        }
+    }
 }
 
 bool bitmap::write(string filename)
