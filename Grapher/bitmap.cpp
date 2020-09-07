@@ -15,22 +15,19 @@ void bitmap::run()
     write("picture.bmp");
 }
 
-bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), height(height), func(func), p_pixels(new uint8_t[width * height * 3]){}
-
-void bitmap::graphing_function()
+bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), height(height), func(func), p_pixels(new uint8_t[width * height * 3])
 {
-    double y1 = INFINITY, y2 = - INFINITY;
-    
+    y1 = INFINITY;
+    y2 = - INFINITY;
     for(int x = x1; x <= x2; x++)
     {
         if(func(x) > y2) y2 = func(x);
         if(func(x) < y1) y1 = func(x);
     }
-//    for(int x = x1; x <= x2; x++)
-//    {
-//        set_pixel((x + ((x1 > 0) ? - x1 : x1)) * width / (abs(x1) + abs(x2)), func(x), 0, 255, 0);
-//    }
-    
+}
+
+void bitmap::graphing_function()
+{
     for(int x = x1; x <= x2; x++)
     {
         set_pixel((x + (int)(x1 > 0 ? (- x1) : x1)) * width / (x2 - x1), height / 2 + (int)(func(x) * height / (y2 - y1)), 0, 255, 0);
@@ -50,11 +47,19 @@ void bitmap::set_pixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
 void bitmap::draw_axis()
 {
     //draw x axis
-    for(int x = 0; x < width; x++) set_pixel(x, height / 2, 255, 255, 255);
+    if(y1 <= 0)
+    {
+        for(int x = 0; x < width; x++) set_pixel(x, height + y1 * height / (y2 - y1), 255, 255, 255);
+    }
     //draw y axis
-    for(int y = 0; y < height; y++) set_pixel(width / 2, y, 255, 255, 255);
+    if(x1 <= 0)
+    {
+        for(int y = 0; y < height; y++) set_pixel(- x1 * width / (x2 - x1), y, 255, 255, 255);
+    }
+    
     //draw (0, 0)
     int radius = 10;
+    
     for(int x = - radius; x < radius; x++)
     {
         for(int y = - radius; y < radius; y++)

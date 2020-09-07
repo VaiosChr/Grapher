@@ -13,7 +13,7 @@ class bitmap
 {
 private:
     int width{0}, height{0};
-    double (* func)(double);
+    double (* func)(double), y1, y2;
     unique_ptr<uint8_t> p_pixels{nullptr};
 
 public:
