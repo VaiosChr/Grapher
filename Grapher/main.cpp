@@ -3,8 +3,8 @@
 
 #include "bitmap.hpp"
 
-#define width 800
-#define height 600
+#define width 2000
+#define height 1500
 
 using namespace std;
 
