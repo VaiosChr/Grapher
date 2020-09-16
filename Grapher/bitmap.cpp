@@ -19,7 +19,7 @@ bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), he
 {
     y1 = INFINITY;
     y2 = - INFINITY;
-    for(int x = x1; x <= x2; x++)
+    for(int x = x1; x < x2; x++)
     {
         if(func(x) > y2) y2 = func(x);
         if(func(x) < y1) y1 = func(x);
@@ -28,9 +28,12 @@ bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), he
 
 void bitmap::graphing_function()
 {
-    for(int x = x1; x <= x2; x++)
+    for(int x = x1; x < x2; x++)
     {
-        set_pixel((x + (int)(x1 > 0 ? (- x1) : x1)) * width / (x2 - x1), height / 2 + (int)(func(x) * height / (y2 - y1)), 0, 255, 0);
+//        set_pixel(((x1 > 0 ? (- x1) : x1) + x) * width / (x2 - x1), ((y1 > 0 ? (- y1) : y1) + func(x)) * height / (y2 - y1), 0, 255, 0);
+//        ((x1 > 0 ? (- x1) : x1) + x) / (double)(x2 - x1) * width
+//        (y1 > 0 ? (- y1) : y1) + func(x) / (double)(y2 - y1) * height
+        set_pixel((double)((x1 > 0 ? (- x1) : x1) + x) / (x2 - x1) * width, (double)((y1 > 0 ? (- y1) : y1) + func(x)) / (y2 - y1) * height, 0, 255, 0);
     }
 }
 
@@ -47,26 +50,25 @@ void bitmap::set_pixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
 void bitmap::draw_axis()
 {
     //draw x axis
-    if(y1 <= 0)
+    if(y1 * y2 <= 0)
     {
-        for(int x = 0; x < width; x++) set_pixel(x, height + y1 * height / (y2 - y1), 255, 255, 255);
+        for(int x = 0; x < width; x++) set_pixel(x, - y1 * height / (y2 - y1), 255, 255, 255);
     }
     //draw y axis
-    if(x1 <= 0)
+    if(x1 * x2 <= 0)
     {
         for(int y = 0; y < height; y++) set_pixel(- x1 * width / (x2 - x1), y, 255, 255, 255);
     }
-    
     //draw (0, 0)
-    int radius = 10;
-    
-    for(int x = - radius; x < radius; x++)
+    if(y1 * y2 <= 0 && x1 * x2 <= 0)
     {
-        for(int y = - radius; y < radius; y++)
+        int radius = 5;
+
+        for(int x = - radius; x <= radius; x++)
         {
-            set_pixel(width / 2 + x, height / 2- sqrt(pow(radius, 2) - pow(x, 2)), 255, 255, 255);
-            set_pixel(width / 2 + x, height / 2 + (int)sqrt(pow(radius, 2) - pow(x, 2)), 255, 255, 255);
-        }
+            int f = sqrt(pow(radius, 2) - pow(x, 2));
+            set_pixel(- x1 * width / (x2 - x1) + x, - y1 * height / (y2 - y1) - f, 255, 255, 255);
+            set_pixel(- x1 * width / (x2 - x1) + x, - y1 * height / (y2 - y1) + f, 255, 255, 255);        }
     }
 }
 
@@ -86,8 +88,8 @@ bool bitmap::write(string filename)
     file.write((char *)&file_header, sizeof(file_header));
     file.write((char *)&info_header, sizeof(info_header));
     file.write((char *)p_pixels.get(), width * height * 3);
-    
     file.close();
+    
     if(!file) return false;
     return true;
 }
