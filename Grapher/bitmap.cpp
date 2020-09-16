@@ -28,14 +28,7 @@ bitmap::bitmap(int width, int height, double(* func)(double)) : width(width), he
 
 void bitmap::graphing_function()
 {
-    for(int x = x1; x < x2; x++)
-    {
-//        set_pixel(((x1 > 0 ? (- x1) : x1) + x) * width / (x2 - x1), ((y1 > 0 ? (- y1) : y1) + func(x)) * height / (y2 - y1), 0, 255, 0);
-//        ((x1 > 0 ? (- x1) : x1) + x) / (double)(x2 - x1) * width
-//        (y1 > 0 ? (- y1) : y1) + func(x) / (double)(y2 - y1) * height
-//        set_pixel((double)((x1 > 0 ? (- x1) : x1) + x) / (x2 - x1) * width, (double)((y1 > 0 ? (- y1) : y1) + func(x)) / (y2 - y1) * height, 0, 255, 0);
-        set_pixel((abs(x - x1)) * width / (x2 - x1), (func(x) - y1 - 1) * height / (y2 - y1), 0, 255, 0);
-    }
+    for(int x = x1; x < x2; x++) set_pixel((abs(x - x1)) * width / (x2 - x1), (func(x) - y1 - 1) * height / (y2 - y1), 0, 255, 0);
 }
 
 void bitmap::set_pixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
